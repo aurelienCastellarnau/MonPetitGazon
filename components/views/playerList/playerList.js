@@ -5,7 +5,7 @@ import {
     View,
     ScrollView
 } from 'react-native';
-import { PlayerListView } from './utils';
+import { PlayerListView, PlayerSearch } from './utils';
 
 class PlayerList extends React.Component {
 
@@ -13,7 +13,10 @@ class PlayerList extends React.Component {
         super(props);
 
         this.state = {
-            isPlayer: false
+            isPlayer: false,
+            filter : '',
+            data: null,
+            copyData: null
         };
         this._getPlayerList();
     }
@@ -24,6 +27,7 @@ class PlayerList extends React.Component {
             .then(responseData => {
                 this.setState({
                     data: responseData,
+                    copyData: responseData,
                     isPlayer: true
                 })
             })
@@ -38,10 +42,24 @@ class PlayerList extends React.Component {
         })
     };
 
+    filter = (filter) => {
+        let data = this.state.data;
+
+        if (filter !== "")
+            data = data.filter(word => word.lastname !== undefined ? word.lastname.search(filter) > -1 : null);
+        else
+            data = this.state.copyData;
+        this.setState({
+            filter: filter,
+            data: data
+        });
+    };
+
     _stateRender = () => {
         if (this.state.isPlayer) {
             return (
                 <ScrollView style={{ flex: 1 }}>
+                    <PlayerSearch onChangeFilter={(filter) => this.setState({ filter: filter })} filter={this.state.filter} />
                     <PlayerListView data={this.state.data} onClickPlayer={(v) => this._playerStatistic(v)} />
                 </ScrollView>
             )
