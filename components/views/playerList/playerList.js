@@ -42,13 +42,12 @@ class PlayerList extends React.Component {
         })
     };
 
-    filter = (filter) => {
-        let data = this.state.data;
+    _filter = (filter) => {
+        let data = this.state.copyData;
 
         if (filter !== "")
             data = data.filter(word => word.lastname !== undefined ? word.lastname.search(filter) > -1 : null);
-        else
-            data = this.state.copyData;
+        
         this.setState({
             filter: filter,
             data: data
@@ -59,7 +58,7 @@ class PlayerList extends React.Component {
         if (this.state.isPlayer) {
             return (
                 <ScrollView style={{ flex: 1 }}>
-                    <PlayerSearch onChangeFilter={(filter) => this.setState({ filter: filter })} filter={this.state.filter} />
+                    <PlayerSearch onChangeFilter={(filter) => this._filter(filter)} filter={this.state.filter} />
                     <PlayerListView data={this.state.data} onClickPlayer={(v) => this._playerStatistic(v)} />
                 </ScrollView>
             )

@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 export const PlayerSearch = (props) => (
-    <View style={{ width: '100%', justifyContent: 'center', paddingTop: 50 }}>
+    <View style={{ width: '100%', justifyContent: 'center', paddingTop: 50, paddingBottom: 20 }}>
         <View style={{ width: '100%', justifyContent: 'center', flexDirection: 'row' }}>
             <View style={{ width: '100%', justifyContent: 'center' }}>
                 <TextInput
@@ -20,7 +20,6 @@ export const PlayerSearch = (props) => (
                     <View style={{ width: '100%', height: 1, backgroundColor: "#2cc6fe" }} />
                 </View>
             </View>
-            <View style={{ width: '15%', height: 20}} />
         </View>
     </View>
 );
